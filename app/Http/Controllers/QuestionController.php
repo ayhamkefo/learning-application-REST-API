@@ -130,7 +130,7 @@ class QuestionController extends Controller
             ], 422);
         }
         $question = InterviewQuestion::find($id);
-        if ($question) {
+        if ($question && $question->is_approved) {
             $question->question_text = $request->question_text;
             $question->topic_name = $request->topic_name;
             $question->save();
@@ -151,7 +151,7 @@ class QuestionController extends Controller
     public function destroy(string $id)
     {
         $question = InterviewQuestion::find($id);
-        if (!$question) {
+        if (!$question || !$question->is_approved) {
             return response()->json([
                 'status' => 404,
                 'message' => 'this interview question was not found'
