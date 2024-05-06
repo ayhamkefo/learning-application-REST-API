@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserPerformance;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,9 +33,14 @@ class AuthUser extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-
+        
+        UserPerformance::create([
+            'user_id' => $user->id,
+            'points' => 0,
+            'question_solved' => 0,
+        ]);
         $token = $user->createToken('authToken')->plainTextToken;
-
+        
         return response()->json([
             'status' => 200,
             'message' => 'user registered successfully',
