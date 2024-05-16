@@ -11,6 +11,11 @@ class ProgrammingPath extends Model
     protected $fillable = [
         'title',
         'description',
-        'sources'
+        'sources',
+        'roles',
+        'challenges',
+        'interests',
+        'frameworks',
+        'steps_to_learn'
     ];
 }

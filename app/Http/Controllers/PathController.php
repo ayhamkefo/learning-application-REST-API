@@ -29,7 +29,12 @@ class PathController extends Controller
             [
                 'title' => 'required|string',
                 'description' => 'required|string',
-                'sources' => 'required|string'
+                'sources' => 'required|string',
+                'roles' => 'required|string',
+                'challenges' => 'required|string',
+                'interests' => 'required|string',
+                'frameworks'=> 'nullable|string',
+                'steps_to_learn' => 'required|string',
             ]
         );
         if ($validator->fails()) {
@@ -38,11 +43,7 @@ class PathController extends Controller
                 'message' => $validator->messages()
             ], 422);
         }
-        ProgrammingPath::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'sources' => $request->sources
-        ]);
+        ProgrammingPath::create($request->all());
         return response()->json([
             'status' => 200,
             'message' => 'programming path add successfully'
@@ -67,14 +68,19 @@ class PathController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, int $id)
     {
         $validator = Validator::make(
             $request->all(),
             [
                 'title' => 'required|string',
                 'description' => 'required|string',
-                'sources' => 'required|string'
+                'sources' => 'required|string',
+                'roles' => 'required|string',
+                'challenges' => 'required|string',
+                'interests' => 'required|string',
+                'frameworks'=> 'string',
+                'steps_to_learn' => 'required|string',
             ]
         );
         if ($validator->fails()) {
@@ -85,10 +91,7 @@ class PathController extends Controller
         }
         $path = ProgrammingPath::find($id);
         if ($path) {
-            $path->title = $request->title;
-            $path->description = $request->description;
-            $path->sources = $request->sources;
-            $path->save();
+            $path->update($request->all());
             return response()->json([
                 'status' => 200,
                 'message' => 'programming path updated successfully'
