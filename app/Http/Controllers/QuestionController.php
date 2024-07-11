@@ -49,7 +49,8 @@ class QuestionController extends Controller
         $question->save();
         return response()->json([
             'status' => 200,
-            'message' => 'interview question add successfully'
+            'message' => 'interview question add successfully',
+            'id' => $question['id'],
         ], 200);
     }
 

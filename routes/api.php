@@ -26,7 +26,6 @@ Route::prefix('admin')->middleware(['admin', 'auth:sanctum'])->group(function ()
     
 });
 Route::prefix('student')->middleware(['student', 'auth:sanctum'])->group(function () {
-    
     Route::resource('paths', PathController::class)->only('index', 'show');
     Route::resource('concepts', ConceptController::class)->only('index', 'show');
     Route::post('questions/{question_id}/choices', [ChoiceController::class, 'store']);
@@ -34,4 +33,6 @@ Route::prefix('student')->middleware(['student', 'auth:sanctum'])->group(functio
     Route::resource('questions', QuestionController::class)->except('update');
     Route::get('student-questions', [QuestionController::class, 'getUserQuestions']);
     Route::get('user-preformance', [PreformancesContrroler::class,'increaseQuestionsSolved']);
+    Route::Post('update-profile/{userID}',[AuthUser::class,'updateProfile']);
+    Route::Post('change-password/{userID}',[AuthUser::class,'changeProfile']);
 });

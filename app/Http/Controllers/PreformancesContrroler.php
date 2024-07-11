@@ -13,7 +13,7 @@ class PreformancesContrroler extends Controller
         UserPerformance::where('user_id', Auth::user()->id)->increment('question_solved');
         return response()->json([
             'status' => 200,
-            'message' => 'user preformaces updated successfully pls',
+            'message' => 'user preformaces updated successfully',
         ], 200);
     }
 }
